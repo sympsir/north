@@ -1,0 +1,198 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e8e4dc;
+  font-family: "Times New Roman", Times, serif;
+  color: #141414;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Kertas Koran Proporsional (Rasio Portrait seperti Referensi) */
+.newspaper {
+  width: 100%;
+  max-width: 720px;
+  background-color: #f3f0ea;
+  padding: 4.5vw 5vw 6vw;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Garis Header Atas & Bawah ISSUE, JUNE - NEWS */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: clamp(10px, 2.6vw, 15px);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-top: 1.5px solid #222;
+  border-bottom: 1.5px solid #222;
+  padding: 1.2vw 0;
+  margin-bottom: 2vw;
+}
+
+/* Judul Besar NEWSPAPER */
+.title {
+  font-size: clamp(40px, 12.6vw, 88px);
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: -0.5px;
+  line-height: 0.95;
+  margin: 1.5vw 0 2.5vw;
+  transform: scaleY(1.12); /* Membuat huruf sedikit tinggi seperti tipografi koran klasik */
+}
+
+.divider-thick {
+  border: none;
+  border-top: 1.5px solid #222;
+  margin-bottom: 3.5vw;
+}
+
+.divider-thin {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 3.5vw 0;
+}
+
+/* Section 1 & Section 2: Tetap Berdampingan & Memanjang */
+.section-main {
+  display: flex;
+  gap: 3.5vw;
+  align-items: stretch;
+}
+
+.section-secondary {
+  display: flex;
+  gap: 3.5vw;
+  align-items: stretch;
+}
+
+.article-text {
+  flex: 1.05;
+  display: flex;
+  flex-direction: column;
+}
+
+.headline {
+  font-size: clamp(14px, 3.8vw, 25px);
+  font-weight: bold;
+  line-height: 1.15;
+  margin-bottom: 1.8vw;
+  font-style: italic;
+  letter-spacing: -0.3px;
+}
+
+.headline.small {
+  font-size: clamp(12.5px, 3.3vw, 22px);
+}
+
+.date {
+  font-size: clamp(8.5px, 2.1vw, 13px);
+  color: #222;
+  margin-bottom: 2vw;
+  font-weight: bold;
+}
+
+.article-text p {
+  font-size: clamp(8.5px, 2.15vw, 13.5px);
+  line-height: 1.32;
+  text-align: justify;
+  margin-bottom: 1.6vw;
+  hyphens: auto;
+}
+
+.article-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Kotak Gambar Abu-Abu */
+.image-placeholder {
+  background-color: #c7c7c7;
+  flex: 0.95;
+}
+
+.image-placeholder.large {
+  min-height: 52vw; /* Memanjang ke bawah sejajar dengan 3 paragraf teks */
+}
+
+.image-placeholder.medium {
+  min-height: 28vw;
+}
+
+/* Section 3: Dua Kolom Bawah */
+.section-columns {
+  display: flex;
+  gap: 4vw;
+}
+
+.column {
+  flex: 1;
+}
+
+.column-title {
+  font-size: clamp(10.5px, 2.7vw, 17px);
+  font-weight: bold;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 1.8vw;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.column p {
+  font-size: clamp(8.5px, 2.15vw, 13.5px);
+  line-height: 1.32;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* Penyesuaian khusus agar di layar Desktop tidak kebesaran */
+@media (min-width: 721px) {
+  .newspaper {
+    padding: 32px 38px 45px;
+    margin: 20px 0;
+  }
+  .header-top {
+    padding: 8px 0;
+    margin-bottom: 14px;
+  }
+  .title {
+    margin: 10px 0 18px;
+  }
+  .divider-thick {
+    margin-bottom: 24px;
+  }
+  .divider-thin {
+    margin: 24px 0;
+  }
+  .section-main,
+  .section-secondary {
+    gap: 24px;
+  }
+  .headline {
+    margin-bottom: 12px;
+  }
+  .date {
+    margin-bottom: 14px;
+  }
+  .article-text p {
+    margin-bottom: 12px;
+  }
+  .image-placeholder.large {
+    min-height: 360px;
+  }
+  .image-placeholder.medium {
+    min-height: 195px;
+  }
+  .section-columns {
+    gap: 28px;
+  }
+  .column-title {
+    margin-bottom: 12px;
+  }
+}
