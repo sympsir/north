@@ -13,13 +13,14 @@ body {
   min-height: 100vh;
 }
 
-/* Kertas Koran Proporsional (Rasio Portrait seperti Referensi) */
+/* Kertas Koran Proporsional */
 .newspaper {
   width: 100%;
   max-width: 720px;
   background-color: #f3f0ea;
   padding: 4.5vw 5vw 6vw;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
 /* Garis Header Atas & Bawah ISSUE, JUNE - NEWS */
@@ -44,7 +45,7 @@ body {
   letter-spacing: -0.5px;
   line-height: 0.95;
   margin: 1.5vw 0 2.5vw;
-  transform: scaleY(1.12); /* Membuat huruf sedikit tinggi seperti tipografi koran klasik */
+  transform: scaleY(1.12);
 }
 
 .divider-thick {
@@ -59,13 +60,8 @@ body {
   margin: 3.5vw 0;
 }
 
-/* Section 1 & Section 2: Tetap Berdampingan & Memanjang */
-.section-main {
-  display: flex;
-  gap: 3.5vw;
-  align-items: stretch;
-}
-
+/* Section 1 & Section 2 */
+.section-main,
 .section-secondary {
   display: flex;
   gap: 3.5vw;
@@ -110,18 +106,30 @@ body {
   margin-bottom: 0;
 }
 
-/* Kotak Gambar Abu-Abu */
-.image-placeholder {
+/* Bingkai Video & Foto (Pengganti kotak abu-abu) */
+.media-box {
   background-color: #c7c7c7;
   flex: 0.95;
+  position: relative;
+  overflow: hidden;
 }
 
-.image-placeholder.large {
-  min-height: 52vw; /* Memanjang ke bawah sejajar dengan 3 paragraf teks */
+.media-box.large {
+  min-height: 52vw;
 }
 
-.image-placeholder.medium {
+.media-box.medium {
   min-height: 28vw;
+}
+
+.media-box video,
+.media-box img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Memastikan video & foto penuh rapi tanpa gepeng */
+  display: block;
 }
 
 /* Section 3: Dua Kolom Bawah */
@@ -151,7 +159,69 @@ body {
   hyphens: auto;
 }
 
-/* Penyesuaian khusus agar di layar Desktop tidak kebesaran */
+/* =========================================================
+   ANIMASI CLASSIC EDITORIAL (Berjalan serentak di detik sama)
+   ========================================================= */
+
+/* Kondisi awal sebelum halaman aktif */
+.anim-header {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.anim-text {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.anim-media {
+  opacity: 0;
+  clip-path: inset(0 0 100% 0); /* Tirai tertutup dari bawah ke atas */
+  transition: opacity 1.3s cubic-bezier(0.22, 1, 0.36, 1),
+              clip-path 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.anim-media video,
+.anim-media img {
+  transform: scale(1.08);
+  filter: grayscale(100%) contrast(1.1);
+  transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 1.6s ease;
+}
+
+.anim-line {
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Kondisi aktif serentak saat pengguna masuk (.is-loaded) */
+.newspaper.is-loaded .anim-header,
+.newspaper.is-loaded .anim-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.newspaper.is-loaded .anim-media {
+  opacity: 1;
+  clip-path: inset(0 0 0% 0); /* Tirai terbuka mengungkap foto/video */
+}
+
+.newspaper.is-loaded .anim-media video,
+.newspaper.is-loaded .anim-media img {
+  transform: scale(1);
+  filter: grayscale(15%) contrast(1.03); /* Sedikit nuansa vintage editorial */
+}
+
+.newspaper.is-loaded .anim-line {
+  transform: scaleX(1);
+}
+
+/* Penyesuaian Desktop */
 @media (min-width: 721px) {
   .newspaper {
     padding: 32px 38px 45px;
@@ -183,10 +253,10 @@ body {
   .article-text p {
     margin-bottom: 12px;
   }
-  .image-placeholder.large {
+  .media-box.large {
     min-height: 360px;
   }
-  .image-placeholder.medium {
+  .media-box.medium {
     min-height: 195px;
   }
   .section-columns {
